@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/PocketAccounting/static/css/main.398f7fa6.css",
-    "main.js": "/PocketAccounting/static/js/main.af54207d.js",
-    "static/js/453.36fe3bf7.chunk.js": "/PocketAccounting/static/js/453.36fe3bf7.chunk.js",
+    "main.js": "/PocketAccounting/static/js/main.a71c9108.js",
+    "static/js/453.68c68032.chunk.js": "/PocketAccounting/static/js/453.68c68032.chunk.js",
     "index.html": "/PocketAccounting/index.html",
     "main.398f7fa6.css.map": "/PocketAccounting/static/css/main.398f7fa6.css.map",
-    "main.af54207d.js.map": "/PocketAccounting/static/js/main.af54207d.js.map",
-    "453.36fe3bf7.chunk.js.map": "/PocketAccounting/static/js/453.36fe3bf7.chunk.js.map"
+    "main.a71c9108.js.map": "/PocketAccounting/static/js/main.a71c9108.js.map",
+    "453.68c68032.chunk.js.map": "/PocketAccounting/static/js/453.68c68032.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.398f7fa6.css",
-    "static/js/main.af54207d.js"
+    "static/js/main.a71c9108.js"
   ]
 }
