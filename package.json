@@ -2,7 +2,7 @@
   "name": "project_main",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://MironovNick.github.io/pocket_accounting",
+  "homepage": "https://mironovnick.github.io/pocket_accounting",
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.8",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
