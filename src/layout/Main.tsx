@@ -17,6 +17,8 @@ type PropsType = {
     removeCheck: (checkId: string) => void
     editOpen: () => void
     editCurrentCheck: (checkId: string, incomeRate: boolean, sum: number, cat: string, not: string) => void
+    currencyExchangeRate: number
+    currentTheme: boolean
 }
 
 export const Main = (props: PropsType) => {
@@ -27,7 +29,9 @@ export const Main = (props: PropsType) => {
                           removeCheck={props.removeCheck}
                           editCurrentCheck={props.editCurrentCheck}
                           editOpen={props.editOpen}
-                />
+                          currencyExchangeRate={props.currencyExchangeRate}
+                          currentTheme={props.currentTheme}
+                              />
             </FlexWrapper>
         </StyledMain>
     )

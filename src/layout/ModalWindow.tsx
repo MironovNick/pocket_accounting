@@ -13,11 +13,12 @@ type PropsType = {
     closeModal: () => void
     editCheck: (checkId: string, sum: number, cat: string, not: string) => void
     menuItems: string[]
+    currencyExchangeRate: number
 }
 
 export const ModalWindow = (props: PropsType) => {
 
-    const [checkPrice, setCheckPrice] = useState(props.operationType == 'edit' ? props.currentCheck.sum : '0')
+    const [checkPrice, setCheckPrice] = useState(props.operationType == 'edit' ? props.currentCheck.sum * props.currencyExchangeRate : '0')
     const [checkCategory, setCheckCategory] = useState(props.operationType == 'edit' ? props.currentCheck.category : props.menuItems[0])
     const [checkNote, setCheckNote] = useState(props.operationType == 'edit' ? props.currentCheck.note : '')
 
@@ -31,11 +32,6 @@ export const ModalWindow = (props: PropsType) => {
         setCheckNote(event.currentTarget.value)
     }
 
-    /*const date = new Date();
-    const monthName = date.toLocaleDateString('en-US', { month: 'long' });
-    const dayOfMonth = date.getDate().toString().padStart(2, '0');
-    const formattedDate = `${dayOfMonth} ${monthName}`;*/
-
     const formattedDate = (new Date()).toISOString().substring(0,10);
 
     const OkButtonHandler = () => {
@@ -43,18 +39,13 @@ export const ModalWindow = (props: PropsType) => {
         else editCheckHandler();
     }
 
-    /*const addNewCheck = () => {
-        props.addCheck(Number(checkPrice), checkCategory, checkNote, formattedDate);
-        props.closeModal();
-    }*/
-
     const addNewCheck = () => {
-        props.addCheck(Number(checkPrice), props.operationType === "income" ? true : false, checkCategory, checkNote, formattedDate);
+        props.addCheck(Number(checkPrice) / props.currencyExchangeRate, props.operationType === "income" ? true : false, checkCategory, checkNote, formattedDate);
         props.closeModal();
     }
 
     const editCheckHandler = () => {
-        props.editCheck(props.currentCheck.id, Number(checkPrice), checkCategory, checkNote);
+        props.editCheck(props.currentCheck.id, Number(checkPrice) / props.currencyExchangeRate, checkCategory, checkNote);
         props.closeModal();
     }
 
@@ -67,7 +58,7 @@ export const ModalWindow = (props: PropsType) => {
 
                 <form>
                     <label htmlFor="fname">Price:</label>
-                    <input type="text" id="fname" name="fname" value={checkPrice} onChange={changeCheckPriceHandler}/><br />
+                    <input type="number" id="fname" className="priceInput" name="fname" value={checkPrice} onChange={changeCheckPriceHandler}/><br />
                     <label htmlFor="lname">Category:</label>
                     <select value={checkCategory} onChange={changeCheckCategoryHandler}>
                         {props.menuItems.map((item: string, index: number) => {
@@ -95,6 +86,7 @@ export const ModalWindow = (props: PropsType) => {
 }
 
 export const ModalWrapper = styled.div`
+  display: block;
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 0;
@@ -113,23 +105,22 @@ export const ModalWrapper = styled.div`
   font-style: normal;
   font-weight: normal;
   font-size: 20px;
-
-  /*.ModalBody:target {
-    visibility: visible;
-    opacity: 1;
-  }*/
 `
 
 export const AddWindow = styled.div`
   width: 350px;
   height: auto;
-  background: #FFFFFF;
-  border: 1px solid rgba(35, 110, 255, 0.3);
+  background: #1B2F4A;
+  border: 1px solid #2A4A74;
   box-sizing: border-box;
   border-radius: 8px;
   position: relative;
   margin: 200px auto;
   padding: 10px 10px;
+  color: #BECCE0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   form{
     padding: 15px 0;
@@ -141,6 +132,15 @@ export const AddWindow = styled.div`
   }
 
   input{
+    margin: 5px 15px;
+  }
+  
+  .priceInput{
+    width: 170px;
+  }
+
+  select{
+    width: 134px;
     margin: 5px 15px;
   }
 

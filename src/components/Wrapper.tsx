@@ -15,4 +15,5 @@ export const FlexWrapper = styled.div<FlexWrapperPropsType>`
   flex-wrap: ${props => props.wrap || "nowrap"};
   height: auto;
   width: 100%;
+  
 `

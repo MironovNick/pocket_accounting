@@ -2,9 +2,7 @@ import Modal from 'react-modal'
 import {ModalWindow} from "./ModalWindow";
 import {checkType} from "../App";
 import {ItemType} from "./Main";
-
-const itemsIncome = ["salary", "freelance", "gift", "another source of income"];
-const itemsRate = ["food", "clothes", "utility payment", "health care", "education", "vacation"]
+import {AddCategoryModalWindow} from "./AddCategoryWindow";
 
 type PropsType = {
     addCheck: (sum: number, incomeRate: boolean, cat: string, not: string, date: string) => void
@@ -13,40 +11,109 @@ type PropsType = {
     isOpen: boolean
     operationType: checkType
     onRequestClose: () => void
+    modalType: boolean
+    itemsIncome: string[]
+    itemsRate: string[]
+    addIncome: (name: string) => void
+    addRate: (name: string) => void
+    removeIncome: (name: string) => void
+    removeRate: (name: string) => void
+    currencyExchangeRate: number
 }
 
 export const ModalBody = (props: PropsType) => {
 
-    let items: string[] /* = props.operationType == "rate" ? itemsRate : itemsIncome*/
-
-    /*if(props.operationType === 'rate')
-        items = itemsRate
-    else if(props.operationType === 'income')
-        items = itemsIncome
-    else if(itemsRate.indexOf(props.currentCheck.category) != -1)
-        items = itemsRate
-    else
-        items = itemsIncome*/
+    let items: string[]
 
     if(props.operationType === 'rate')
-        items = itemsRate
+        items = props.itemsRate
     else if(props.operationType === 'income')
-        items = itemsIncome
+        items = props.itemsIncome
     else if(props.currentCheck.incomeRate)
-        items = itemsIncome
+        items = props.itemsIncome
     else
-        items = itemsRate
+        items = props.itemsRate
+
+    if(props.modalType)
 
     return (
-        <Modal isOpen={props.isOpen} onRequestClose={props.onRequestClose}>
+        <Modal isOpen={props.isOpen} onRequestClose={props.onRequestClose}
+               style={{
+                   overlay: {
+                       position: 'fixed',
+                       top: 0,
+                       left: 0,
+                       right: 0,
+                       bottom: 0,
+                       backgroundColor: 'rgba(255, 255, 255, 0.75)',
+                   },
+                   content: {
+                       position: 'absolute',
+                       top: '40px',
+                       left: '40px',
+                       right: '40px',
+                       bottom: '40px',
+                       border: 'none',
+                       background: "transparent",
+                       overflow: 'auto',
+                       WebkitOverflowScrolling: 'touch',
+                       borderRadius: '4px',
+                       outline: 'none',
+                       padding: '20px'
+                   }
+               }}>
             <ModalWindow closeModal={props.onRequestClose}
                          menuItems={items}
                          addCheck={props.addCheck}
                          currentCheck={props.currentCheck}
                          editCheck={props.editCheck}
                          operationType={props.operationType}
+                         currencyExchangeRate={props.currencyExchangeRate}
             />
+
         </Modal>
     )
+
+    else
+
+        return (
+            <Modal isOpen={props.isOpen} onRequestClose={props.onRequestClose}
+                   style={{
+                       overlay: {
+                           position: 'fixed',
+                           top: 0,
+                           left: 0,
+                           right: 0,
+                           bottom: 0,
+                           backgroundColor: 'rgba(255, 255, 255, 0.75)',
+                       },
+                       content: {
+                           position: 'absolute',
+                           top: '40px',
+                           left: '40px',
+                           right: '40px',
+                           bottom: '40px',
+                           border: 'none',
+                           background: "transparent",
+                           overflow: 'auto',
+                           WebkitOverflowScrolling: 'touch',
+                           borderRadius: '4px',
+                           outline: 'none',
+                           padding: '20px'
+                       }
+                   }}>
+                <AddCategoryModalWindow closeModal={props.onRequestClose}
+                                        addIncome={props.addIncome}
+                                        addRate={props.addRate}
+                                        itemsIncome={props.itemsIncome}
+                                        itemsRate={props.itemsRate}
+                                        removeIncome={props.removeIncome}
+                                        removeRate={props.removeRate}
+                />
+
+            </Modal>
+        )
 }
+
+
 
