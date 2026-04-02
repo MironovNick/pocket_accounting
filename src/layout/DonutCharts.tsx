@@ -147,7 +147,8 @@ export const DonutCharts = (props: PropsType) => {
     return (
         <StyledDiagramWindow>
             <MenuBar className="menuBarLeft">
-                <FontAwesomeIcon icon={faChevronLeft} cursor={'pointer'} className="chevronLeft"
+                <FontAwesomeIcon icon={faChevronLeft} cursor={'pointer'}
+                                 className={props.currentTheme ? "chevronLeftDark" : "chevronLeftLight"}
                                  onClick={props.openLeftWindowMob}/>
                 <Toggle changeTheme={props.changeTheme}/>
             </MenuBar>
@@ -192,6 +193,22 @@ export const StyledDiagramWindow = styled.div`
   @media screen and (max-width: 992px) {
     .menuBarLeft {
       display: flex;
+    }
+  }
+
+  .chevronLeftDark{
+    display: none;
+    color: #BECCE0;
+  }
+
+  .chevronLeftLight{
+    display: none;
+    color: #8E6C6B;
+  }
+
+  @media screen and (max-width: 992px){
+    .chevronLeftDark, .chevronLeftLight{
+      display: block;
     }
   }
 

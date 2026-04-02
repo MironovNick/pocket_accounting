@@ -242,7 +242,7 @@ function App() {
         <div className="App">
             <div
                 className={currentTheme ? !isMobile ? "LeftWindow" : displayLeftWindowMob ? "LeftWindow" : "LeftWindowInactive" :
-                    !isMobile ? "LeftWindowLight" : displayLeftWindowMob ? "LeftWindowLight" : "LeftWindowInactive"}>
+                    !isMobile ? "LeftWindowLight" : displayLeftWindowMob ? "LeftWindowLight" : "LeftWindowLightInactive"}>
                 <Header incomeRateFilterChange={incomeRateFilterChange}
                         incomeSum={incomeSum * currencyExchangeRate[currencyIndex]}
                         rateSum={rateSum * currencyExchangeRate[currencyIndex]}
@@ -287,20 +287,20 @@ function App() {
                            removeIncome={removeIncome}
                            removeRate={removeRate}
                            currencyExchangeRate={currencyExchangeRate[currencyIndex]}
-
                 />
 
             </div>
             <div
                 className={currentTheme ? !isMobile ? "RightWindow" : displayLeftWindowMob ? "RightWindowInactive" : "RightWindow" :
-                    !isMobile ? "RightWindowLight" : displayLeftWindowMob ? "RightWindowLight" : "RightWindowInactive"}>
+                    !isMobile ? "RightWindowLight" : !displayLeftWindowMob ? "RightWindowLight" : "RightWindowLightInactive"}>
                 <DonutCharts ItemList={filteredItemList}
                              incomeRate={incomeRateFilter}
                              incomeSum={incomeSum}
                              rateSum={rateSum}
                              openLeftWindowMob={openLeftWindowMob}
                              changeTheme={changeTheme}
-                             currentTheme={currentTheme}/>
+                             currentTheme={currentTheme}
+                />
             </div>
         </div>
     );

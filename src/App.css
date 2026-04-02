@@ -80,32 +80,30 @@
         width: 100%;
     }
 
-    .LeftWindow, .RightWindow {
-        max-width: 900px;
+    .LeftWindow, .RightWindow, .LeftWindowLight, .RightWindowLight {
+        width: 570px;
     }
 
-    .LeftWindow {
+    .LeftWindow, .LeftWindowLight {
         display: block;
         opacity: 1;
-
         transition: 0.3s ease-in-out;
     }
 
-    .RightWindow {
+    .RightWindow, .RightWindowLight {
         display: block;
         opacity: 1;
-
         transition: 0.3s ease-in-out;
     }
 
-    .LeftWindowInactive {
+    .LeftWindowInactive, .LeftWindowLightInactive {
         display: none;
         opacity: 0.2;
         margin-left: -800px;
         transition: 0.3s ease-in-out;
     }
 
-    .RightWindowInactive {
+    .RightWindowInactive, .RightWindowLightInactive {
         display: none;
         opacity: 0.2;
         margin-left: 800px;
@@ -115,8 +113,9 @@
 }
 
 @media screen and (max-width: 576px) {
-    .LeftWindow, .RightWindow {
-        max-width: 375px;
+    .LeftWindow, .RightWindow, .LeftWindowLight, .RightWindowLight {
+        width: 100%;
+        margin: 0 0 0 0;
     }
 
 }

@@ -9,7 +9,7 @@ export type PropsType = {
 
 export const AddBar = (props: PropsType) => {
     return(
-        <AddSection>
+        <AddSection >
             <div className={props.currentTheme ? "AddSectionDark" : "AddSectionLight"}>
                 <AddButton className="add-income-button" onClick={props.incomeOpen} title="Add new income check">+ income</AddButton>
                 <AddButton className="add-rate-button" onClick={props.rateOpen} title="Add new expence check">+ expense</AddButton>
@@ -19,17 +19,18 @@ export const AddBar = (props: PropsType) => {
 }
 
 const AddSection = styled.section`
-  width: inherit;
-
+  width: 436px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 0;
+  position: fixed;
+  
   .AddSectionDark {
     width: inherit;
     height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     padding: 10px 10px;
-    bottom: 0;
-    position: fixed;
     background-color: #1B2F4A;
     border-top: 2px solid #2A4A74;
     transition: .2s ease-in-out;
@@ -38,12 +39,7 @@ const AddSection = styled.section`
   .AddSectionLight {
     width: inherit;
     height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     padding: 10px 10px;
-    bottom: 0;
-    position: fixed;
     background-color: #EBCBBB;
     border-top: 2px solid #F9EFF0;
     transition: .2s ease-in-out;
@@ -58,7 +54,11 @@ const AddSection = styled.section`
   }
 
   @media screen and (max-width: 992px) {
-    width: inherit;
+    width: 570px;
+  }
+  
+  @media screen and (max-width: 576px){
+    width: 100%;
   }
 `
 
@@ -73,4 +73,9 @@ const AddButton = styled.button`
   border-radius: 30px;
   cursor: pointer;
   margin: 0 5px;
+
+  @media screen and (max-width: 576px){
+    font-size: 16px;
+  }
+  
 `

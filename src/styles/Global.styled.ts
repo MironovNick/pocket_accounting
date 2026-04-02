@@ -21,8 +21,6 @@ export const GlobalStyle = createGlobalStyle`
     align-items: center;
     align-content: center;
     transition: .2s ease-in-out;
-    /*background: linear-gradient(275deg,rgba(2, 0, 36, 1) 0%, rgba(18, 33, 54, 1) 35%, rgba(3, 3, 31, 1) 100%) fixed;*/
-    /*background: linear-gradient(105deg, rgba(214, 91, 90) 0%, rgba(237, 149, 93) 10%, rgba(228, 221, 221) 100%) fixed;*/
   }
 
   code {

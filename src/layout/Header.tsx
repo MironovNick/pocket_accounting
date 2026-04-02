@@ -66,7 +66,7 @@ export const Header = (props: PropsType) => {
                     </div>
                     <FontAwesomeIcon icon={faChevronRight}
                                      cursor={'pointer'}
-                                     className="chevronRight"
+                                     className={props.currentTheme ? "chevronRightDark" : "chevronRightLight"}
                                      onClick={props.openRightWindowMob}/>
                 </MenuBar>
                 <MonthBar>
@@ -137,6 +137,7 @@ const StyledHeader = styled.header`
     font-weight: normal;
     font-size: 16px;
   }
+  
 `
 
 export const MenuBar = styled.div`
@@ -167,12 +168,18 @@ export const MenuBar = styled.div`
     margin-right: 10px;
   }
   
-  .chevronRight{
+  .chevronRightDark{
     display: none;
+    color: #BECCE0;
+  }
+
+  .chevronRightLight{
+    display: none;
+    color: #8E6C6B;
   }
 
   @media screen and (max-width: 992px){
-    .chevronRight{
+    .chevronRightDark, .chevronRightLight{
       display: block;
     }
   }
@@ -228,7 +235,7 @@ const MonthBar = styled.div`
 `
 
 const RateBar = styled.div`
-  width: 416px;
+  width: 100%;
   height: auto;
   display: flex;
   padding: 8px 10px;
@@ -254,11 +261,12 @@ const RateBar = styled.div`
 `
 
 const ButtonBar = styled.div`
-  width: 416px;
+  width: 100%;
   height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 8px 10px;
 
   button {
     width: 100%;
@@ -292,6 +300,10 @@ const ButtonBar = styled.div`
     border-bottom: solid 2px white;
     color: white;
     transition: .2s ease-in-out;
+  }
+
+  @media screen and (max-width: 576px){
+    button{font-size: 11px;}
   }
 
 `
