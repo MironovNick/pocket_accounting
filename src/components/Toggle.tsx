@@ -1,22 +1,15 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {styled} from "styled-components";
 
 type PropsType = {
     changeTheme: () => void
+    currentTheme: boolean
 }
 
 export const Toggle = (props: PropsType) => {
-
-    const [toggled, setToggled] = useState(false)
-
-    const changeTheme = () => {
-        setToggled(!toggled)
-        props.changeTheme()
-    }
-
     return(
         <ToggleButton title="Change theme">
-            <button className={`toggle-btn ${toggled ? "toggled" : ""}`} onClick={changeTheme}>
+            <button className={`toggle-btn ${!props.currentTheme ? "toggled" : ""}`} onClick={props.changeTheme}>
                 <div className={"thumb"}></div>
             </button>
         </ToggleButton>

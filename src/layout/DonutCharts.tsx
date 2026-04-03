@@ -150,7 +150,7 @@ export const DonutCharts = (props: PropsType) => {
                 <FontAwesomeIcon icon={faChevronLeft} cursor={'pointer'}
                                  className={props.currentTheme ? "chevronLeftDark" : "chevronLeftLight"}
                                  onClick={props.openLeftWindowMob}/>
-                <Toggle changeTheme={props.changeTheme}/>
+                <Toggle changeTheme={props.changeTheme} currentTheme={props.currentTheme}/>
             </MenuBar>
             <DonutWindow>
 

@@ -55,7 +55,7 @@ export const Header = (props: PropsType) => {
             <FlexWrapper direction={"column"}>
                 <MenuBar>
                     <div className={props.currentTheme ? "menuButtonBarDark" : "menuButtonBarLight"}>
-                        <Toggle changeTheme={props.changeTheme}/>
+                        <Toggle changeTheme={props.changeTheme} currentTheme={props.currentTheme}/>
                         <FontAwesomeIcon icon={faList}
                                          cursor={'pointer'}
                                          className="addCategory"
