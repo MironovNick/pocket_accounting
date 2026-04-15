@@ -19,6 +19,7 @@ type PropsType = {
     editCurrentCheck: (checkId: string, incomeRate: boolean, sum: number, cat: string, not: string) => void
     currencyExchangeRate: number
     currentTheme: boolean
+    currencySign: string
 }
 
 export const Main = (props: PropsType) => {
@@ -31,7 +32,8 @@ export const Main = (props: PropsType) => {
                           editOpen={props.editOpen}
                           currencyExchangeRate={props.currencyExchangeRate}
                           currentTheme={props.currentTheme}
-                              />
+                          currencySign={props.currencySign}
+                />
             </FlexWrapper>
         </StyledMain>
     )

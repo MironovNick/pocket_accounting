@@ -15,6 +15,7 @@ const itemsRate = ["food", "clothes", "utility payment", "health care", "educati
 
 const currencyExchangeRate = [1, 2.8, 0.85, 0.75]
 const currencyName = ["USD", "BYN", "EUR", "GBP"]
+const currencySignArr = ["$", "Б", "€", "£"]
 
 function App() {
 
@@ -261,6 +262,7 @@ function App() {
                         changeCurrency={changeCurrency}
                         changeTheme={changeTheme}
                         currentTheme={currentTheme}
+                        currencySign={currencySignArr[currencyIndex]}
                 />
                 <Main itemList={filteredItemList}
                       removeCheck={removeCheck}
@@ -268,6 +270,7 @@ function App() {
                       editCurrentCheck={editCurrentCheck}
                       currencyExchangeRate={currencyExchangeRate[currencyIndex]}
                       currentTheme={currentTheme}
+                      currencySign={currencySignArr[currencyIndex]}
                 />
                 <AddBar rateOpen={rateClicked}
                         incomeOpen={incomeClicked}

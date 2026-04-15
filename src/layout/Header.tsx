@@ -26,6 +26,7 @@ type PropsType = {
     changeCurrency: (index: number) => void
     changeTheme: () => void
     currentTheme: boolean
+    currencySign: string
 }
 
 export const Header = (props: PropsType) => {
@@ -90,19 +91,19 @@ export const Header = (props: PropsType) => {
                 <RateBar >
                     <div className={props.currentTheme ? "rateBarDark" : "rateBarLight"}>
                         <p>Income</p>
-                        <p>{Math.round(props.incomeSum * 100)/100} $</p>
+                        <p>{Math.round(props.incomeSum * 100)/100} {props.currencySign}</p>
                     </div>
                 </RateBar>
                 <RateBar>
                     <div className={props.currentTheme ? "rateBarDark" : "rateBarLight"}>
                         <p>Expense</p>
-                        <p>{Math.round(props.rateSum * 100)/100} $</p>
+                        <p>{Math.round(props.rateSum * 100)/100} {props.currencySign}</p>
                     </div>
                 </RateBar>
                 <RateBar>
                     <div className={props.currentTheme ? "rateBarDark" : "rateBarLight"}>
                         <p>Balance</p>
-                        <p>{Math.round(props.balance * 100)/100} $</p>
+                        <p>{Math.round(props.balance * 100)/100} {props.currencySign}</p>
                     </div>
                 </RateBar>
 

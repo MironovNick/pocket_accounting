@@ -57,7 +57,7 @@ export const CurrList = styled.div`
   }
 
   .optionLight{
-    background-color: rgba(231, 222, 223, 0.5);
+    background-color: rgba(231, 222, 223, 0.85);
     color: #8E6C6B;
     border: 1px solid #F9EFF0;
 

@@ -11,6 +11,7 @@ type PropsType = {
     editCurrentCheck: (checkId: string, incomeRate: boolean, sum: number, cat: string, not: string) => void
     currencyExchangeRate: number
     currentTheme: boolean
+    currencySign: string
 }
 
 export const MainItem = (props: PropsType) => {
@@ -45,7 +46,7 @@ export const MainItem = (props: PropsType) => {
                                     </DateBar>
                                     <div className='categorySumBar'>
                                         <p className="category">{item.category}</p>
-                                        <p className="sum">{Math.round(item.sum * props.currencyExchangeRate * 100)/100} $</p>
+                                        <p className="sum">{Math.round(item.sum * props.currencyExchangeRate * 100)/100} {props.currencySign}</p>
                                     </div>
                                     <p className="note">{item.note}</p>
                                 </div>
