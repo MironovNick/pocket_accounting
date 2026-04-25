@@ -2,10 +2,11 @@ import React, {ChangeEvent} from 'react';
 import {styled} from "styled-components";
 import {FlexWrapper} from "../components/Wrapper";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faChevronRight, faList} from "@fortawesome/free-solid-svg-icons";
+import {faChevronRight, faList, faMoneyCheckDollar} from "@fortawesome/free-solid-svg-icons";
 import {incomeRateFilterType} from "../App";
 import {Toggle} from "../components/Toggle";
 import {CurrencyList} from "./CurrencyList";
+import {ExchangeList} from "./ExchangeRateList";
 
 type PropsType = {
     incomeRateFilterChange: (filter: incomeRateFilterType) => void
@@ -27,6 +28,7 @@ type PropsType = {
     changeTheme: () => void
     currentTheme: boolean
     currencySign: string
+    exchangeRate: () => void
 }
 
 export const Header = (props: PropsType) => {
@@ -63,6 +65,7 @@ export const Header = (props: PropsType) => {
                                          title="Add category"
                                          onClick={props.addCategory}
                         />
+                        <ExchangeList/>
                         <CurrencyList changeCurrency={props.changeCurrency} currentTheme={props.currentTheme}/>
                     </div>
                     <FontAwesomeIcon icon={faChevronRight}
@@ -165,6 +168,12 @@ export const MenuBar = styled.div`
   
   .addCategory{
     font-size: 18px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .exchangeRate{
+    font-size: 19px;
     margin-left: 10px;
     margin-right: 10px;
   }

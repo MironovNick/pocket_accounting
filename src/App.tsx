@@ -7,7 +7,7 @@ import {ModalBody} from "./layout/Modal";
 import {v1} from "uuid";
 import {DonutCharts} from "./layout/DonutCharts";
 
-export type checkType = "income" | "rate" | "edit" | "category";
+export type checkType = "income" | "rate" | "edit" | "category" | "exchange";
 export type incomeRateFilterType = "income" | "rate" | "all";
 
 const itemsIncome = ["salary", "freelance", "gift", "another income source"];
@@ -83,6 +83,11 @@ function App() {
     }
     const addCategoryClicked = () => {
         setOperationType("category");
+        setModalType(false)
+        openModal()
+    }
+    const changeExchangeRateClicked = () => {
+        setOperationType("exchange");
         setModalType(false)
         openModal()
     }
@@ -263,6 +268,7 @@ function App() {
                         changeTheme={changeTheme}
                         currentTheme={currentTheme}
                         currencySign={currencySignArr[currencyIndex]}
+                        exchangeRate={changeExchangeRateClicked}
                 />
                 <Main itemList={filteredItemList}
                       removeCheck={removeCheck}
