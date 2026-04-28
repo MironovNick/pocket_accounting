@@ -19,6 +19,20 @@ const currencySignArr = ["$", "Б", "€", "£"]
 
 function App() {
 
+    const[stateExchangeWindow, setExchangeWindowState] = useState<boolean>(false)
+
+    const changeExchangeWindowState = () => {
+        setExchangeWindowState(!stateExchangeWindow)
+    }
+
+    const changeExchange = (num1: number, num2: number, num3: number, num4: number) => {
+        currencyExchangeRate[0] = num1
+        currencyExchangeRate[1] = num2
+        currencyExchangeRate[2] = num3
+        currencyExchangeRate[3] = num4
+        changeExchangeWindowState()
+    }
+
     const [currentTheme, setTheme] = useState<boolean>(true)
 
     const changeBodyBackground = () => {
@@ -269,6 +283,11 @@ function App() {
                         currentTheme={currentTheme}
                         currencySign={currencySignArr[currencyIndex]}
                         exchangeRate={changeExchangeRateClicked}
+                        openExchangeWindow={changeExchangeWindowState}
+                        changeExchange={changeExchange}
+                        stateExchangeWindow={stateExchangeWindow}
+                        currencyExchangeRate={currencyExchangeRate}
+                        currencyName={currencyName}
                 />
                 <Main itemList={filteredItemList}
                       removeCheck={removeCheck}

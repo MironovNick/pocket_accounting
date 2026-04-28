@@ -1,48 +1,89 @@
 import React from 'react';
 import {styled} from "styled-components";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faMoneyCheckDollar} from "@fortawesome/free-solid-svg-icons";
 
-const currencyExchangeRate = [1, 2.8, 0.85, 0.75]
-const currencyItems = ['USD', 'BYN', 'EUR', 'GBP']
-
-type PropsType = {}
+type PropsType = {
+    stateExchangeWindow: boolean
+    changeExchange: (num1: number, num2: number, num3: number, num4: number) => void
+    currencyExchangeRate: number[]
+    currencyName: string[]
+}
 
 export const ExchangeList = (props: PropsType) => {
+
+    const changeExchangeHandler = () => {
+        props.changeExchange(1, 2.85, 0.88, 0.79)
+    }
+
     return (
         <ExchangeRateList>
-            <div className="exchangeRate">
+
+            <div className={props.stateExchangeWindow ? "ExchangeRateListDark" : "ExchangeRateListDarkNone"}>
+
                 <div className="exchangeRateItem">
-                    <label htmlFor="Income">USD</label>
-                    <input type="text" value={1}/>
+                    <div className="currencyBlock">
+                        {props.currencyName.map((item: string) => {
+                                return (
+                                    <p>{item}</p>
+                                )
+                            }
+                        )
+                        }
+                    </div>
+                    <div className="rateBlock">
+                        {props.currencyExchangeRate.map((item: number) => {
+                                return (
+                                    <input type="number" value={item}/>
+                                )
+                            }
+                        )
+                        }
+                    </div>
                 </div>
-                <div className="exchangeRateItem">
-                    <label htmlFor="Income">BYN</label>
-                    <input type="text" value={2.8}/>
-                </div>
-                <div className="exchangeRateItem">
-                    <label htmlFor="Income">EUR</label>
-                    <input type="text" value={0.85}/>
-                </div>
-                <div className="exchangeRateItem">
-                    <label htmlFor="Income">GBP</label>
-                    <input type="text" value={0.75}/>
-                </div>
+
+                <button onClick={changeExchangeHandler}>confirm</button>
+
             </div>
+
+
         </ExchangeRateList>
     )
 
 }
 
 export const ExchangeRateList = styled.div`
-  position: inherit;
-  padding: 0 0 0 0;
-  margin: 0 0 0 0;
-  border: 1px solid red;
 
-  .exchangeRate {
-    padding: 0 0 0 0;
-    margin: 0 0 0 0;
+  .ExchangeRateListDark {
+    display: block;
+    position: absolute;
+    background-color: #1B2F4A;
+    border: 1px solid #2A4A74;
+    color: #BECCE0;
+    padding: 0 0 5px 0;
+    margin: 15px 0 0 -35px;
+    width: 150px;
+    transition: .2s
+      ease - in -out;
+  }
+
+  .ExchangeRateListLight {
+    display: block;
+    position: absolute;
+    background-color: #EBCBBB;
+    border: 1px solid #F9EFF0;
+    color: #8E6C6B;
+    padding: 0 0 5px 0;
+    margin: 15px 0
+      0 - 35
+    px;
+    width: 150px;
+    transition: .2s
+      ease - in -out;
+  }
+
+  .ExchangeRateListDarkNone {
+    display: none;
+    transition: .2s
+      ease - in -out;
   }
 
   label {
@@ -53,13 +94,26 @@ export const ExchangeRateList = styled.div`
   input {
     padding: 0 0 0 0;
     margin: 0 0 0 0;
-    width: 50px;
+    width: 80px;
   }
 
-  .exchangeRateItem{
-    padding: 0 0 0 0;
+  .exchangeRateItem {
+    padding: 2px 0 2px 0;
     margin: 0 0 0 0;
+    display: flex;
   }
 
+  .currencyBlock {
+    display: block;
+  }
+
+  p {
+    margin: 4px 0 0 5px;
+  }
+
+  button {
+    width: 80px;
+    cursor: pointer;
+  }
 
 `

@@ -6,7 +6,7 @@ import {faChevronRight, faList, faMoneyCheckDollar} from "@fortawesome/free-soli
 import {incomeRateFilterType} from "../App";
 import {Toggle} from "../components/Toggle";
 import {CurrencyList} from "./CurrencyList";
-import {ExchangeList} from "./ExchangeRateList";
+import {ExchangeList, ExchangeRateList} from "./ExchangeRateList";
 
 type PropsType = {
     incomeRateFilterChange: (filter: incomeRateFilterType) => void
@@ -29,6 +29,11 @@ type PropsType = {
     currentTheme: boolean
     currencySign: string
     exchangeRate: () => void
+    openExchangeWindow: () => void
+    changeExchange: (num1: number, num2: number, num3: number, num4: number) => void
+    stateExchangeWindow: boolean
+    currencyExchangeRate: number[]
+    currencyName: string[]
 }
 
 export const Header = (props: PropsType) => {
@@ -65,7 +70,17 @@ export const Header = (props: PropsType) => {
                                          title="Add category"
                                          onClick={props.addCategory}
                         />
-                        <ExchangeList/>
+                        <FontAwesomeIcon icon={faMoneyCheckDollar}
+                                         cursor={'pointer'}
+                                         className="exchangeRate"
+                                         onClick={props.openExchangeWindow}
+                        />
+                        <ExchangeList changeExchange={props.changeExchange}
+                                      stateExchangeWindow={props.stateExchangeWindow}
+                                      currencyExchangeRate={props.currencyExchangeRate}
+                                      currencyName={props.currencyName}
+                        />
+
                         <CurrencyList changeCurrency={props.changeCurrency} currentTheme={props.currentTheme}/>
                     </div>
                     <FontAwesomeIcon icon={faChevronRight}
@@ -86,35 +101,49 @@ export const Header = (props: PropsType) => {
                            onChange={changeSecondDateHandler}/>
                 </MonthBar>
                 <ButtonBar>
-                    <button className={props.currentTheme ? "buttonDark" : "buttonLight"} onClick={props.setThisMonth}>This month</button>
-                    <button className={props.currentTheme ? "buttonDark" : "buttonLight"} onClick={props.setLastMonth}>Last month</button>
-                    <button className={props.currentTheme ? "buttonDark" : "buttonLight"} onClick={props.setThisYear}>This year</button>
-                    <button className={props.currentTheme ? "buttonDark" : "buttonLight"} onClick={props.setAllTime}>All time</button>
+                    <button className={props.currentTheme ? "buttonDark" : "buttonLight"}
+                            onClick={props.setThisMonth}>This month
+                    </button>
+                    <button className={props.currentTheme ? "buttonDark" : "buttonLight"}
+                            onClick={props.setLastMonth}>Last month
+                    </button>
+                    <button className={props.currentTheme ? "buttonDark" : "buttonLight"}
+                            onClick={props.setThisYear}>This year
+                    </button>
+                    <button className={props.currentTheme ? "buttonDark" : "buttonLight"} onClick={props.setAllTime}>All
+                        time
+                    </button>
                 </ButtonBar>
-                <RateBar >
+                <RateBar>
                     <div className={props.currentTheme ? "rateBarDark" : "rateBarLight"}>
                         <p>Income</p>
-                        <p>{Math.round(props.incomeSum * 100)/100} {props.currencySign}</p>
+                        <p>{Math.round(props.incomeSum * 100) / 100} {props.currencySign}</p>
                     </div>
                 </RateBar>
                 <RateBar>
                     <div className={props.currentTheme ? "rateBarDark" : "rateBarLight"}>
                         <p>Expense</p>
-                        <p>{Math.round(props.rateSum * 100)/100} {props.currencySign}</p>
+                        <p>{Math.round(props.rateSum * 100) / 100} {props.currencySign}</p>
                     </div>
                 </RateBar>
                 <RateBar>
                     <div className={props.currentTheme ? "rateBarDark" : "rateBarLight"}>
                         <p>Balance</p>
-                        <p>{Math.round(props.balance * 100)/100} {props.currencySign}</p>
+                        <p>{Math.round(props.balance * 100) / 100} {props.currencySign}</p>
                     </div>
                 </RateBar>
 
             </FlexWrapper>
             <ButtonBar>
-                <button className={props.currentTheme ? "buttonDark" : "buttonLight"} onClick={allFilterChangeHandler}>All</button>
-                <button className={props.currentTheme ? "buttonDark" : "buttonLight"} onClick={incomeFilterChangeHandler}>Income</button>
-                <button className={props.currentTheme ? "buttonDark" : "buttonLight"} onClick={rateFilterChangeHandler}>Expense</button>
+                <button className={props.currentTheme ? "buttonDark" : "buttonLight"}
+                        onClick={allFilterChangeHandler}>All
+                </button>
+                <button className={props.currentTheme ? "buttonDark" : "buttonLight"}
+                        onClick={incomeFilterChangeHandler}>Income
+                </button>
+                <button className={props.currentTheme ? "buttonDark" : "buttonLight"}
+                        onClick={rateFilterChangeHandler}>Expense
+                </button>
             </ButtonBar>
         </StyledHeader>
     )
@@ -141,7 +170,7 @@ const StyledHeader = styled.header`
     font-weight: normal;
     font-size: 16px;
   }
-  
+
 `
 
 export const MenuBar = styled.div`
@@ -154,46 +183,50 @@ export const MenuBar = styled.div`
   padding: 5px 10px;
 
 
-  .menuButtonBarLight{
+  .menuButtonBarLight {
     display: flex;
     align-items: center;
     color: #8E6C6B;
   }
 
-  .menuButtonBarDark{
+  .menuButtonBarDark {
     display: flex;
     align-items: center;
     color: #BECCE0;
   }
-  
-  .addCategory{
+
+  .addCategory {
     font-size: 18px;
     margin-left: 10px;
     margin-right: 10px;
   }
 
-  .exchangeRate{
+  .exchangeRate {
     font-size: 19px;
     margin-left: 10px;
     margin-right: 10px;
   }
-  
-  .chevronRightDark{
+
+  .chevronRightDark {
     display: none;
     color: #BECCE0;
   }
 
-  .chevronRightLight{
+  .chevronRightLight {
     display: none;
     color: #8E6C6B;
   }
 
-  @media screen and (max-width: 992px){
-    .chevronRightDark, .chevronRightLight{
+  @media screen and (max-width: 992px) {
+    .chevronRightDark, .chevronRightLight {
       display: block;
     }
   }
-  
+
+  .ExchangeRateListWindow {
+
+  }
+
 `
 
 const MonthBar = styled.div`
@@ -250,7 +283,7 @@ const RateBar = styled.div`
   display: flex;
   padding: 8px 10px;
 
-  .rateBarDark{
+  .rateBarDark {
     width: inherit;
     color: #BECCE0;
     display: flex;
@@ -258,8 +291,8 @@ const RateBar = styled.div`
     justify-content: space-between;
     align-items: center;
   }
-  
-  .rateBarLight{
+
+  .rateBarLight {
     width: inherit;
     color: #8E6C6B;
     display: flex;
@@ -267,7 +300,7 @@ const RateBar = styled.div`
     justify-content: space-between;
     align-items: center;
   }
-  
+
 `
 
 const ButtonBar = styled.div`
@@ -285,35 +318,37 @@ const ButtonBar = styled.div`
     cursor: pointer;
     transition: .2s ease-in-out;
   }
-  
-  .buttonDark{
+
+  .buttonDark {
     background-color: #1B2F4A;
     border-bottom: solid 2px #BECCE0;
     color: #BECCE0;
   }
 
-  .buttonDark:hover{
+  .buttonDark:hover {
     background-color: #4377EA;
     border-bottom: solid 2px white;
     color: white;
     transition: .2s ease-in-out;
   }
-  
-  .buttonLight{
+
+  .buttonLight {
     background-color: rgba(231, 222, 223, 0.85);
     border-bottom: solid 2px #F9EFF0;
     color: #8E6C6B;
   }
 
-  .buttonLight:hover{
+  .buttonLight:hover {
     background-color: #D8605A;
     border-bottom: solid 2px white;
     color: white;
     transition: .2s ease-in-out;
   }
 
-  @media screen and (max-width: 576px){
-    button{font-size: 11px;}
+  @media screen and (max-width: 576px) {
+    button {
+      font-size: 11px;
+    }
   }
 
 `
