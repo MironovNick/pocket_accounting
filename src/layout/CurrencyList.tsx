@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {styled} from "styled-components";
 
 const currencyItems = ['USD', 'BYN', 'EUR', 'GBP']

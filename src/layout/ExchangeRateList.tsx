@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {styled} from "styled-components";
 
 type PropsType = {
@@ -11,7 +11,31 @@ type PropsType = {
 export const ExchangeList = (props: PropsType) => {
 
     const changeExchangeHandler = () => {
-        props.changeExchange(1, 2.85, 0.88, 0.79)
+        props.changeExchange(currencyRate1, currencyRate2, currencyRate3, currencyRate4)
+    }
+
+    const [currencyRate1, setCurrencyRate1] = useState(props.currencyExchangeRate[0])
+
+    const changeCurrencyRate1Handler = (event: ChangeEvent<HTMLInputElement>) => {
+        setCurrencyRate1(Number(event.currentTarget.value))
+    }
+
+    const [currencyRate2, setCurrencyRate2] = useState(props.currencyExchangeRate[1])
+
+    const changeCurrencyRate2Handler = (event: ChangeEvent<HTMLInputElement>) => {
+        setCurrencyRate2(Number(event.currentTarget.value))
+    }
+
+    const [currencyRate3, setCurrencyRate3] = useState(props.currencyExchangeRate[2])
+
+    const changeCurrencyRate3Handler = (event: ChangeEvent<HTMLInputElement>) => {
+        setCurrencyRate3(Number(event.currentTarget.value))
+    }
+
+    const [currencyRate4, setCurrencyRate4] = useState(props.currencyExchangeRate[3])
+
+    const changeCurrencyRate4Handler = (event: ChangeEvent<HTMLInputElement>) => {
+        setCurrencyRate4(Number(event.currentTarget.value))
     }
 
     return (
@@ -30,20 +54,18 @@ export const ExchangeList = (props: PropsType) => {
                         }
                     </div>
                     <div className="rateBlock">
-                        {props.currencyExchangeRate.map((item: number) => {
-                                return (
-                                    <input type="number" value={item}/>
-                                )
-                            }
-                        )
-                        }
+                        <form>
+                            <input type="number" id="in1" value={currencyRate1} onChange={changeCurrencyRate1Handler}/>
+                            <input type="number" id="in2" value={currencyRate2} onChange={changeCurrencyRate2Handler}/>
+                            <input type="number" id="in3" value={currencyRate3} onChange={changeCurrencyRate3Handler}/>
+                            <input type="number" id="in4" value={currencyRate4} onChange={changeCurrencyRate4Handler}/>
+                        </form>
                     </div>
                 </div>
 
                 <button onClick={changeExchangeHandler}>confirm</button>
 
             </div>
-
 
         </ExchangeRateList>
     )

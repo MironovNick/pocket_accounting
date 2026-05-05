@@ -80,7 +80,6 @@ export const Header = (props: PropsType) => {
                                       currencyExchangeRate={props.currencyExchangeRate}
                                       currencyName={props.currencyName}
                         />
-
                         <CurrencyList changeCurrency={props.changeCurrency} currentTheme={props.currentTheme}/>
                     </div>
                     <FontAwesomeIcon icon={faChevronRight}
