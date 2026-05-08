@@ -4,7 +4,6 @@ import {incomeRateFilterType} from "../App";
 import {PieChart, Pie, Cell, Sector} from 'recharts';
 import {ItemType} from './Main';
 import {PieSectorDataItem} from "recharts/types/polar/Pie";
-import {MenuBar} from "./Header";
 import {faChevronLeft} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Toggle} from "../components/Toggle";
@@ -146,12 +145,12 @@ export const DonutCharts = (props: PropsType) => {
 
     return (
         <StyledDiagramWindow>
-            <MenuBar className="menuBarLeft">
+            <RightMenuBar className="menuBarLeft">
                 <FontAwesomeIcon icon={faChevronLeft} cursor={'pointer'}
                                  className={props.currentTheme ? "chevronLeftDark" : "chevronLeftLight"}
                                  onClick={props.openLeftWindowMob}/>
                 <Toggle changeTheme={props.changeTheme} currentTheme={props.currentTheme}/>
-            </MenuBar>
+            </RightMenuBar>
             <DonutWindow>
 
                 <PieChart width={600} height={400} margin={{top: 5, right: 5, bottom: 5, left: 5}}>
@@ -212,6 +211,16 @@ export const StyledDiagramWindow = styled.div`
     }
   }
 
+`
+
+export const RightMenuBar = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
 `
 
 export const DateBar = styled.div`

@@ -13,12 +13,13 @@ export type incomeRateFilterType = "income" | "rate" | "all";
 const itemsIncome = ["salary", "freelance", "gift", "another income source"];
 const itemsRate = ["food", "clothes", "utility payment", "health care", "education", "vacation"]
 
-const currencyExchangeRate = [1, 2.8, 0.85, 0.75]
+const currencyExchangeRateItems = [1, 2.8, 0.85, 0.75]
 const currencyName = ["USD", "BYN", "EUR", "GBP"]
 const currencySignArr = ["$", "Б", "€", "£"]
 
 function App() {
 
+    const[currencyExchangeRate, setCurrencyExchangeRate] = useState<number[]>(localStorage.getItem("exchangeRate") ? JSON.parse((localStorage.getItem("exchangeRate") || "")) : currencyExchangeRateItems)
     const[stateExchangeWindow, setExchangeWindowState] = useState<boolean>(false)
 
     const changeExchangeWindowState = () => {
@@ -26,10 +27,9 @@ function App() {
     }
 
     const changeExchange = (num1: number, num2: number, num3: number, num4: number) => {
-        currencyExchangeRate[0] = num1
-        currencyExchangeRate[1] = num2
-        currencyExchangeRate[2] = num3
-        currencyExchangeRate[3] = num4
+        const newCurrencyExchangeRate = [num1, num2, num3, num4]
+        setCurrencyExchangeRate(newCurrencyExchangeRate)
+        localStorage.setItem("exchangeRate", JSON.stringify(newCurrencyExchangeRate))
         changeExchangeWindowState()
     }
 

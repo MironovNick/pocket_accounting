@@ -1,12 +1,9 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import {styled} from "styled-components";
 import {FlexWrapper} from "../components/Wrapper";
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faChevronRight, faList, faMoneyCheckDollar} from "@fortawesome/free-solid-svg-icons";
 import {incomeRateFilterType} from "../App";
-import {Toggle} from "../components/Toggle";
-import {CurrencyList} from "./CurrencyList";
-import {ExchangeList, ExchangeRateList} from "./ExchangeRateList";
+import {ToolsWindow} from "./MonthButtonWindow";
+import {HeaderMenu} from "./HeaderMenu";
 
 type PropsType = {
     incomeRateFilterChange: (filter: incomeRateFilterType) => void
@@ -38,112 +35,34 @@ type PropsType = {
 
 export const Header = (props: PropsType) => {
 
-    const incomeFilterChangeHandler = () => {
-        props.incomeRateFilterChange('income')
-    }
-
-    const rateFilterChangeHandler = () => {
-        props.incomeRateFilterChange('rate')
-    }
-
-    const allFilterChangeHandler = () => {
-        props.incomeRateFilterChange('all')
-    }
-
-    const changeFirstDateHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        props.changeFirstDate(event.currentTarget.value)
-    }
-
-    const changeSecondDateHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        props.changeSecondDate(event.currentTarget.value)
-    }
-
     return (
         <StyledHeader>
             <FlexWrapper direction={"column"}>
-                <MenuBar>
-                    <div className={props.currentTheme ? "menuButtonBarDark" : "menuButtonBarLight"}>
-                        <Toggle changeTheme={props.changeTheme} currentTheme={props.currentTheme}/>
-                        <FontAwesomeIcon icon={faList}
-                                         cursor={'pointer'}
-                                         className="addCategory"
-                                         title="Add category"
-                                         onClick={props.addCategory}
-                        />
-                        <FontAwesomeIcon icon={faMoneyCheckDollar}
-                                         cursor={'pointer'}
-                                         className="exchangeRate"
-                                         onClick={props.openExchangeWindow}
-                        />
-                        <ExchangeList changeExchange={props.changeExchange}
-                                      stateExchangeWindow={props.stateExchangeWindow}
-                                      currencyExchangeRate={props.currencyExchangeRate}
-                                      currencyName={props.currencyName}
-                        />
-                        <CurrencyList changeCurrency={props.changeCurrency} currentTheme={props.currentTheme}/>
-                    </div>
-                    <FontAwesomeIcon icon={faChevronRight}
-                                     cursor={'pointer'}
-                                     className={props.currentTheme ? "chevronRightDark" : "chevronRightLight"}
-                                     onClick={props.openRightWindowMob}/>
-                </MenuBar>
-                <MonthBar>
-                    <input type="date"
-                           className={props.currentTheme ? "inputDark" : "inputLight"}
-                           id="firstDate"
-                           value={props.firstDate}
-                           onChange={changeFirstDateHandler}/>
-                    <input type="date"
-                           className={props.currentTheme ? "inputDark" : "inputLight"}
-                           id="secondDate"
-                           value={props.secondDate}
-                           onChange={changeSecondDateHandler}/>
-                </MonthBar>
-                <ButtonBar>
-                    <button className={props.currentTheme ? "buttonDark" : "buttonLight"}
-                            onClick={props.setThisMonth}>This month
-                    </button>
-                    <button className={props.currentTheme ? "buttonDark" : "buttonLight"}
-                            onClick={props.setLastMonth}>Last month
-                    </button>
-                    <button className={props.currentTheme ? "buttonDark" : "buttonLight"}
-                            onClick={props.setThisYear}>This year
-                    </button>
-                    <button className={props.currentTheme ? "buttonDark" : "buttonLight"} onClick={props.setAllTime}>All
-                        time
-                    </button>
-                </ButtonBar>
-                <RateBar>
-                    <div className={props.currentTheme ? "rateBarDark" : "rateBarLight"}>
-                        <p>Income</p>
-                        <p>{Math.round(props.incomeSum * 100) / 100} {props.currencySign}</p>
-                    </div>
-                </RateBar>
-                <RateBar>
-                    <div className={props.currentTheme ? "rateBarDark" : "rateBarLight"}>
-                        <p>Expense</p>
-                        <p>{Math.round(props.rateSum * 100) / 100} {props.currencySign}</p>
-                    </div>
-                </RateBar>
-                <RateBar>
-                    <div className={props.currentTheme ? "rateBarDark" : "rateBarLight"}>
-                        <p>Balance</p>
-                        <p>{Math.round(props.balance * 100) / 100} {props.currencySign}</p>
-                    </div>
-                </RateBar>
-
+                <HeaderMenu currentTheme={props.currentTheme}
+                            changeTheme={props.changeTheme}
+                            addCategory={props.addCategory}
+                            openExchangeWindow={props.openExchangeWindow}
+                            changeExchange={props.changeExchange}
+                            stateExchangeWindow={props.stateExchangeWindow}
+                            currencyExchangeRate={props.currencyExchangeRate}
+                            currencyName={props.currencyName}
+                            changeCurrency={props.changeCurrency}
+                            openRightWindowMob={props.openRightWindowMob}/>
+                <ToolsWindow incomeRateFilterChange={props.incomeRateFilterChange}
+                             changeFirstDate={props.changeFirstDate}
+                             changeSecondDate={props.changeSecondDate}
+                             currentTheme={props.currentTheme}
+                             firstDate={props.firstDate}
+                             secondDate={props.secondDate}
+                             setThisMonth={props.setThisMonth}
+                             setLastMonth={props.setLastMonth}
+                             setThisYear={props.setThisYear}
+                             setAllTime={props.setAllTime}
+                             incomeSum={props.incomeSum}
+                             rateSum={props.rateSum}
+                             balance={props.balance}
+                             currencySign={props.currencySign}/>
             </FlexWrapper>
-            <ButtonBar>
-                <button className={props.currentTheme ? "buttonDark" : "buttonLight"}
-                        onClick={allFilterChangeHandler}>All
-                </button>
-                <button className={props.currentTheme ? "buttonDark" : "buttonLight"}
-                        onClick={incomeFilterChangeHandler}>Income
-                </button>
-                <button className={props.currentTheme ? "buttonDark" : "buttonLight"}
-                        onClick={rateFilterChangeHandler}>Expense
-                </button>
-            </ButtonBar>
         </StyledHeader>
     )
 }
@@ -172,185 +91,9 @@ const StyledHeader = styled.header`
 
 `
 
-export const MenuBar = styled.div`
-  width: 100%;
-  height: auto;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5px 10px;
 
 
-  .menuButtonBarLight {
-    display: flex;
-    align-items: center;
-    color: #8E6C6B;
-  }
 
-  .menuButtonBarDark {
-    display: flex;
-    align-items: center;
-    color: #BECCE0;
-  }
-
-  .addCategory {
-    font-size: 18px;
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-
-  .exchangeRate {
-    font-size: 19px;
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-
-  .chevronRightDark {
-    display: none;
-    color: #BECCE0;
-  }
-
-  .chevronRightLight {
-    display: none;
-    color: #8E6C6B;
-  }
-
-  @media screen and (max-width: 992px) {
-    .chevronRightDark, .chevronRightLight {
-      display: block;
-    }
-  }
-
-  .ExchangeRateListWindow {
-
-  }
-
-`
-
-const MonthBar = styled.div`
-  width: 100%;
-  height: auto;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 10px;
-
-  input[type="date"] {
-    padding: 5px 5px;
-    border: none;
-    font-family: 'Gill Sans', sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 15px;
-    transition: .2s ease-in-out;
-  }
-
-  .inputDark {
-    color: #BECCE0;
-    background-color: #1B2F4A;
-    transition: .2s ease-in-out;
-  }
-
-  .inputLight {
-    background-color: rgba(231, 222, 223, 0.85);
-    color: #8E6C6B;
-    transition: .2s ease-in-out;
-  }
-
-  ::-webkit-calendar-picker-indicator {
-    /*background-color: #BECCE0;*/
-    background-color: #F9EFF0;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: .2s ease-in-out;
-  }
-
-  ::-webkit-calendar-picker-indicator:hover {
-    background-color: white;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: .2s ease-in-out;
-  }
-
-`
-
-const RateBar = styled.div`
-  width: 100%;
-  height: auto;
-  display: flex;
-  padding: 8px 10px;
-
-  .rateBarDark {
-    width: inherit;
-    color: #BECCE0;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .rateBarLight {
-    width: inherit;
-    color: #8E6C6B;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-`
-
-const ButtonBar = styled.div`
-  width: 100%;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 8px 10px;
-
-  button {
-    width: 100%;
-    height: inherit;
-    border: none;
-    cursor: pointer;
-    transition: .2s ease-in-out;
-  }
-
-  .buttonDark {
-    background-color: #1B2F4A;
-    border-bottom: solid 2px #BECCE0;
-    color: #BECCE0;
-  }
-
-  .buttonDark:hover {
-    background-color: #4377EA;
-    border-bottom: solid 2px white;
-    color: white;
-    transition: .2s ease-in-out;
-  }
-
-  .buttonLight {
-    background-color: rgba(231, 222, 223, 0.85);
-    border-bottom: solid 2px #F9EFF0;
-    color: #8E6C6B;
-  }
-
-  .buttonLight:hover {
-    background-color: #D8605A;
-    border-bottom: solid 2px white;
-    color: white;
-    transition: .2s ease-in-out;
-  }
-
-  @media screen and (max-width: 576px) {
-    button {
-      font-size: 11px;
-    }
-  }
-
-`
 
 
 
