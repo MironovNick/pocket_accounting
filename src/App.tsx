@@ -19,6 +19,19 @@ const currencySignArr = ["$", "Б", "€", "£"]
 
 function App() {
 
+    const [itemList, setList] = useState<ItemType[]>(localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items') || '') :
+        [
+            {id: v1(), incomeRate: true, sum: 650, category: "another income source", note: "adcasdc", date: "2025-11-11"},
+            {id: v1(), incomeRate: true, sum: 350, category: "salary", note: "adcasdc", date: "2025-06-01"},
+            {id: v1(), incomeRate: false, sum: 1200, category: "utility payment", note: "qcqascasas", date: "2025-05-01"},
+            {id: v1(), incomeRate: true, sum: 200, category: "salary", note: "nckdmksllxs", date: "2025-05-01"},
+            {id: v1(), incomeRate: false, sum: 500, category: "food", note: "sdcsdv", date: "2025-03-17"},
+            {id: v1(), incomeRate: true, sum: 450, category: "freelance", note: "csdvsdvvsdv", date: "2025-02-28"},
+            {id: v1(), incomeRate: false, sum: 2100, category: "health care", note: "sdcsdv", date: "2024-11-07"},
+            {id: v1(), incomeRate: false, sum: 2300, category: "clothes", note: "casc sdqsf", date: "2024-05-10"},
+        ]
+    );
+
     const[currencyExchangeRate, setCurrencyExchangeRate] = useState<number[]>(localStorage.getItem("exchangeRate") ? JSON.parse((localStorage.getItem("exchangeRate") || "")) : currencyExchangeRateItems)
     const[stateExchangeWindow, setExchangeWindowState] = useState<boolean>(false)
 
@@ -131,10 +144,8 @@ function App() {
     const presentDay = new Date();
     const formattedPresentDay = presentDay.toISOString().substring(0, 10);
 
-    const today = new Date();
-    const lastYear = new Date(today);
-    lastYear.setFullYear(today.getFullYear() - 2);
-    const formattedLastYear = lastYear.toISOString().substring(0, 10);
+    const firstItemDate = itemList.reduce((min, item)=>(min > item.date ? min =  item.date : min), itemList[0].date);
+    const formattedLastYear = firstItemDate.toString().substring(0, 10);
 
     const [firstDate, setFirstDate] = useState<string>(formattedLastYear)
     const [secondDate, setSecondDate] = useState<string>(formattedPresentDay)
@@ -154,34 +165,6 @@ function App() {
     const openRightWindowMob = () => {
         setDisplayLeftWindowMob(false)
     }
-
-    /*incomeRate: true*/
-    const [itemList, setList] = useState<ItemType[]>(localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items') || '') :
-        [
-            {
-                id: v1(),
-                incomeRate: true,
-                sum: 650,
-                category: "another income source",
-                note: "adcasdc",
-                date: "2025-11-11"
-            },
-            {id: v1(), incomeRate: true, sum: 350, category: "salary", note: "adcasdc", date: "2025-06-01"},
-            {
-                id: v1(),
-                incomeRate: false,
-                sum: 1200,
-                category: "utility payment",
-                note: "qcqascasas",
-                date: "2025-05-01"
-            },
-            {id: v1(), incomeRate: true, sum: 200, category: "salary", note: "nckdmksllxs", date: "2025-05-01"},
-            {id: v1(), incomeRate: false, sum: 500, category: "food", note: "sdcsdv", date: "2025-03-17"},
-            {id: v1(), incomeRate: true, sum: 450, category: "freelance", note: "csdvsdvvsdv", date: "2025-02-28"},
-            {id: v1(), incomeRate: false, sum: 2100, category: "health care", note: "sdcsdv", date: "2024-11-07"},
-            {id: v1(), incomeRate: false, sum: 2300, category: "clothes", note: "casc sdqsf", date: "2024-05-10"},
-        ]
-    );
 
     const [currentCheck, setCurrentCheck] = useState<ItemType>(
         {id: "0", incomeRate: true, sum: 0, category: "", note: "", date: ""}
