@@ -42,7 +42,7 @@ export const ToolsWindow = (props: PropsType) => {
     }
 
     return (
-        <MonthButtonWindow>
+        <MonthButtonWindow className={"MonthButtonWindowHidden"}>
             <MonthBar>
                 <input type="date"
                        className={props.currentTheme ? "inputDark" : "inputLight"}
@@ -105,11 +105,18 @@ export const ToolsWindow = (props: PropsType) => {
 
 const MonthButtonWindow = styled.div`
   width: 100%;
+  
+  .MonthButtonWindowVisible{
+    display: block;
+  }
+  
+  .MonthButtonWindowHidden{
+    display: none;
+  }
+  
 `
 
 const MonthBar = styled.div`
-
-
   display: flex;
   flex-direction: row;
   justify-content: space-between;

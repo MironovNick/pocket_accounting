@@ -7,6 +7,7 @@ import {PieSectorDataItem} from "recharts/types/polar/Pie";
 import {faChevronLeft} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Toggle} from "../components/Toggle";
+import {ToolsWindow} from "./MonthButtonWindow";
 
 type PropsType = {
     ItemList: ItemType[]
@@ -16,6 +17,18 @@ type PropsType = {
     openLeftWindowMob: () => void
     changeTheme: () => void
     currentTheme: boolean
+    incomeRateFilterChange: (filter: incomeRateFilterType) => void
+    changeFirstDate: (newDate: string) => void
+    changeSecondDate: (newDate: string) => void
+    firstDate: string
+    secondDate: string
+    setThisMonth: () => void
+    setLastMonth: () => void
+    setThisYear: () => void
+    setAllTime: () => void
+    balance: number
+    currencySign: string
+    isMobile: boolean
 }
 
 export const DonutCharts = (props: PropsType) => {
@@ -153,15 +166,15 @@ export const DonutCharts = (props: PropsType) => {
             </RightMenuBar>
             <DonutWindow>
 
-                <PieChart width={600} height={400} margin={{top: 5, right: 5, bottom: 5, left: 5}}>
+                <PieChart width={600} height={350} margin={{top: -15, right: 5, bottom: 5, left: 5}}>
 
                     <Pie
                         activeShape={renderActiveShape}
                         data={data}
                         cx={297}
                         cy={200}
-                        innerRadius={140}
-                        outerRadius={180}
+                        innerRadius={120}
+                        outerRadius={160}
                         fill="#8884d8"
                         paddingAngle={2}
                         dataKey="value"
@@ -174,7 +187,40 @@ export const DonutCharts = (props: PropsType) => {
                 </PieChart>
 
             </DonutWindow>
+            { props.isMobile &&
+            <ToolsWindow incomeRateFilterChange={props.incomeRateFilterChange}
+                         changeFirstDate={props.changeFirstDate}
+                         changeSecondDate={props.changeSecondDate}
+                         currentTheme={props.currentTheme}
+                         firstDate={props.firstDate}
+                         secondDate={props.secondDate}
+                         setThisMonth={props.setThisMonth}
+                         setLastMonth={props.setLastMonth}
+                         setThisYear={props.setThisYear}
+                         setAllTime={props.setAllTime}
+                         incomeSum={props.incomeSum}
+                         rateSum={props.rateSum}
+                         balance={props.balance}
+                         currencySign={props.currencySign}/>
+            }
+            <StatisticWindow>
+                <div className="statisticWindowItem">
+                    <p className="categoryParagraph">salary</p>
+                    <p>3</p>
+                    <p>2350 $</p>
+                </div>
+                <div className="statisticWindowItem">
+                    <p className="categoryParagraph">freelance</p>
+                    <p>1</p>
+                    <p>450 $</p>
+                </div>
+                <div className="statisticWindowItem">
+                    <p className="categoryParagraph">another income source</p>
+                    <p>1</p>
+                    <p>650 $</p>
+                </div>
 
+            </StatisticWindow>
 
         </StyledDiagramWindow>
     )
@@ -182,7 +228,7 @@ export const DonutCharts = (props: PropsType) => {
 
 export const StyledDiagramWindow = styled.div`
   width: inherit;
-  position: fixed;
+
   /*background-color: greenyellow;*/
 
   .menuBarLeft {
@@ -221,6 +267,7 @@ export const RightMenuBar = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 5px 10px;
+  background-color: transparent;
 `
 
 export const DateBar = styled.div`
@@ -244,6 +291,37 @@ export const DonutWindow = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 99999;
+`
+
+export const StatisticWindow = styled.div`
+  width: inherit;
+  height: auto;
+  
+  .statisticWindowItem{
+    padding: 8px 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    
+    p{
+      width: 45%;
+      font-size: 19px;
+      color: #BECCE0;
+      
+    }
+    
+    .categoryParagraph{
+      width: 90%;
+      font-size: 15px;
+      text-align: left;
+      text-transform: capitalize;
+    }
+    
+    
+  }
+  
 `
 
 export const Donut = styled.canvas`

@@ -29,6 +29,7 @@ function App() {
             {id: v1(), incomeRate: true, sum: 450, category: "freelance", note: "csdvsdvvsdv", date: "2025-02-28"},
             {id: v1(), incomeRate: false, sum: 2100, category: "health care", note: "sdcsdv", date: "2024-11-07"},
             {id: v1(), incomeRate: false, sum: 2300, category: "clothes", note: "casc sdqsf", date: "2024-05-10"},
+            {id: v1(), incomeRate: true, sum: 2300, category: "salary", note: "aaf gfnyuc 123", date: "2024-04-10"}
         ]
     );
 
@@ -144,7 +145,7 @@ function App() {
     const presentDay = new Date();
     const formattedPresentDay = presentDay.toISOString().substring(0, 10);
 
-    const firstItemDate = itemList.reduce((min, item)=>(min > item.date ? min =  item.date : min), itemList[0].date);
+    const firstItemDate = itemList.length ? itemList.reduce((min, item)=>(min > item.date ?  item.date : min),itemList[0].date) : formattedPresentDay;
     const formattedLastYear = firstItemDate.toString().substring(0, 10);
 
     const [firstDate, setFirstDate] = useState<string>(formattedLastYear)
@@ -311,6 +312,18 @@ function App() {
                              openLeftWindowMob={openLeftWindowMob}
                              changeTheme={changeTheme}
                              currentTheme={currentTheme}
+                             incomeRateFilterChange={incomeRateFilterChange}
+                             changeFirstDate={changeFirstDate}
+                             changeSecondDate={changeSecondDate}
+                             firstDate={firstDate}
+                             secondDate={secondDate}
+                             setThisMonth={setThisMonth}
+                             setLastMonth={setLastMonth}
+                             setThisYear={setThisYear}
+                             setAllTime={setAllTime}
+                             balance={balance * currencyExchangeRate[currencyIndex]}
+                             currencySign={currencySignArr[currencyIndex]}
+                             isMobile={isMobile}
                 />
             </div>
         </div>
