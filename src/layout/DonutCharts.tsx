@@ -8,6 +8,12 @@ import {faChevronLeft} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Toggle} from "../components/Toggle";
 import {ToolsWindow} from "./MonthButtonWindow";
+import {v1} from "uuid";
+
+type chartType1 = {
+    name: string
+    value: number
+}
 
 type PropsType = {
     ItemList: ItemType[]
@@ -96,59 +102,53 @@ export const DonutCharts = (props: PropsType) => {
         );
     };
 
-    const foodSum = props.ItemList.reduce((sum, current) =>
-        !current.incomeRate && current.category === 'food' ? sum + current.sum : sum, 0);
+ const ItemList: ItemType[] = props.incomeRate !== "all" ? Object.values(
+  props.ItemList.reduce<Record<string, ItemType>>((acc, current) => {
+    const key = current.category;
 
-    const clothesSum = props.ItemList.reduce((sum, current) =>
-        !current.incomeRate && current.category === 'clothes' ? sum + current.sum : sum, 0);
+    if (acc[key]) {
+      // Если категория уже есть, просто плюсуем сумму
+      acc[key].sum += current.sum;
+      const cnt = Number(acc[key].note) + 1
+      acc[key].note = cnt.toString()
+    } else {
+      // Если категории нет, создаем новую запись.
+      // Генерируем новый id (вызовом v1()), чтобы он не дублировал старый.
+      acc[key] = {
+        id: v1(), // или current.id, если вам важно оставить id первого элемента
+        incomeRate: current.incomeRate,
+        sum: current.sum,
+        category: current.category,
+        note: "1",
+        date: ""
 
-    const utilitySum = props.ItemList.reduce((sum, current) =>
-        !current.incomeRate && current.category === 'utility payment' ? sum + current.sum : sum, 0);
+      };
+    }
+    return acc;
+  }, {})
+) : [];
 
-    const healthSum = props.ItemList.reduce((sum, current) =>
-        !current.incomeRate && current.category === 'health care' ? sum + current.sum : sum, 0);
+ItemList.sort((a, b) => b.sum - a.sum)
 
-    const educationSum = props.ItemList.reduce((sum, current) =>
-        !current.incomeRate && current.category === 'education' ? sum + current.sum : sum, 0);
+const data0: chartType1[] = []
+const item0: chartType1 = {name: "other categories", value: 0}
 
-    const vacationSum = props.ItemList.reduce((sum, current) =>
-        !current.incomeRate && current.category === 'vacation' ? sum + current.sum : sum, 0);
-
-    const salarySum = props.ItemList.reduce((sum, current) =>
-        current.incomeRate && current.category === 'salary' ? sum + current.sum : sum, 0);
-
-    const freelanceSum = props.ItemList.reduce((sum, current) =>
-        current.incomeRate && current.category === 'freelance' ? sum + current.sum : sum, 0);
-
-    const giftSum = props.ItemList.reduce((sum, current) =>
-        current.incomeRate && current.category === 'gift' ? sum + current.sum : sum, 0);
-
-    const anotherSum = props.ItemList.reduce((sum, current) =>
-        current.incomeRate && current.category === 'another income source' ? sum + current.sum : sum, 0);
-
-    const data1 = [
-        {name: 'Food', value: foodSum},
-        {name: 'Clothes', value: clothesSum},
-        {name: 'Utility payment', value: utilitySum},
-        {name: 'Health care', value: healthSum},
-        {name: 'Education', value: educationSum},
-        {name: 'Vacation', value: vacationSum},
-    ];
-
-    const data2 = [
-        {name: 'salary', value: salarySum},
-        {name: 'freelance', value: freelanceSum},
-        {name: 'gift', value: giftSum},
-        {name: 'another income source', value: anotherSum},
-    ];
+for (let i = 0; i < ItemList.length; i++) {
+    if(i < 5) {
+        data0.push({name: ItemList[i].category, value: ItemList[i].sum})
+    } else {
+        item0.value += ItemList[i].sum
+        if(i >= (ItemList.length-1))
+           data0.push(item0) 
+    }
+}
 
     const data3 = [
         {name: 'expense', value: props.rateSum},
         {name: 'income', value: props.incomeSum},
     ]
 
-    const data = props.incomeRate === 'rate' ? data1 :
-        props.incomeRate === 'income' ? data2 : data3;
+    const data = props.incomeRate === 'all' ? data3 : data0
 
 
     const COLORS =
@@ -204,21 +204,17 @@ export const DonutCharts = (props: PropsType) => {
                          currencySign={props.currencySign}/>
             }
             <StatisticWindow>
-                <div className="statisticWindowItem">
-                    <p className="categoryParagraph">salary</p>
-                    <p>3</p>
-                    <p>2350 $</p>
-                </div>
-                <div className="statisticWindowItem">
-                    <p className="categoryParagraph">freelance</p>
-                    <p>1</p>
-                    <p>450 $</p>
-                </div>
-                <div className="statisticWindowItem">
-                    <p className="categoryParagraph">another income source</p>
-                    <p>1</p>
-                    <p>650 $</p>
-                </div>
+                {ItemList.map((item: ItemType) => {
+                    return (
+                        <div className="statisticWindowItem">
+                            <p className="categoryParagraph">{item.category}</p>
+                            <p>{item.note}</p>
+                            <p>{item.sum} $</p>
+                        </div>
+                    )
+                }
+                )
+                }
 
             </StatisticWindow>
 

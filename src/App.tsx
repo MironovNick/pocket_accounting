@@ -5,6 +5,7 @@ import {Main, ItemType} from "./layout/Main";
 import {AddBar} from "./layout/Add";
 import {ModalBody} from "./layout/Modal";
 import {v1} from "uuid";
+import {DonutCharts2} from "./layout/DonutCharts2";
 import {DonutCharts} from "./layout/DonutCharts";
 
 export type checkType = "income" | "rate" | "edit" | "category" | "exchange";
@@ -306,24 +307,24 @@ function App() {
                 className={currentTheme ? !isMobile ? "RightWindow" : displayLeftWindowMob ? "RightWindowInactive" : "RightWindow" :
                     !isMobile ? "RightWindowLight" : !displayLeftWindowMob ? "RightWindowLight" : "RightWindowLightInactive"}>
                 <DonutCharts ItemList={filteredItemList}
-                             incomeRate={incomeRateFilter}
-                             incomeSum={incomeSum}
-                             rateSum={rateSum}
-                             openLeftWindowMob={openLeftWindowMob}
-                             changeTheme={changeTheme}
-                             currentTheme={currentTheme}
-                             incomeRateFilterChange={incomeRateFilterChange}
-                             changeFirstDate={changeFirstDate}
-                             changeSecondDate={changeSecondDate}
-                             firstDate={firstDate}
-                             secondDate={secondDate}
-                             setThisMonth={setThisMonth}
-                             setLastMonth={setLastMonth}
-                             setThisYear={setThisYear}
-                             setAllTime={setAllTime}
-                             balance={balance * currencyExchangeRate[currencyIndex]}
-                             currencySign={currencySignArr[currencyIndex]}
-                             isMobile={isMobile}
+                              incomeRate={incomeRateFilter}
+                              incomeSum={incomeSum}
+                              rateSum={rateSum}
+                              openLeftWindowMob={openLeftWindowMob}
+                              changeTheme={changeTheme}
+                              currentTheme={currentTheme}
+                              incomeRateFilterChange={incomeRateFilterChange}
+                              changeFirstDate={changeFirstDate}
+                              changeSecondDate={changeSecondDate}
+                              firstDate={firstDate}
+                              secondDate={secondDate}
+                              setThisMonth={setThisMonth}
+                              setLastMonth={setLastMonth}
+                              setThisYear={setThisYear}
+                              setAllTime={setAllTime}
+                              balance={balance * currencyExchangeRate[currencyIndex]}
+                              currencySign={currencySignArr[currencyIndex]}
+                              isMobile={isMobile}
                 />
             </div>
         </div>
