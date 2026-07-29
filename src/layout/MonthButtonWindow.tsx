@@ -104,16 +104,17 @@ export const ToolsWindow = (props: PropsType) => {
 }
 
 const MonthButtonWindow = styled.div`
+
   width: 100%;
-  
-  .MonthButtonWindowVisible{
+
+  .MonthButtonWindowVisible {
     display: block;
   }
-  
-  .MonthButtonWindowHidden{
+
+  .MonthButtonWindowHidden {
     display: none;
   }
-  
+
 `
 
 const MonthBar = styled.div`

@@ -5,7 +5,6 @@ import {Main, ItemType} from "./layout/Main";
 import {AddBar} from "./layout/Add";
 import {ModalBody} from "./layout/Modal";
 import {v1} from "uuid";
-import {DonutCharts2} from "./layout/DonutCharts2";
 import {DonutCharts} from "./layout/DonutCharts";
 
 export type checkType = "income" | "rate" | "edit" | "category" | "exchange";
@@ -300,6 +299,7 @@ function App() {
                            removeIncome={removeIncome}
                            removeRate={removeRate}
                            currencyExchangeRate={currencyExchangeRate[currencyIndex]}
+                           currentTheme={currentTheme}
                 />
 
             </div>

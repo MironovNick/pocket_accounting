@@ -8,11 +8,13 @@ export type PropsType = {
 }
 
 export const AddBar = (props: PropsType) => {
-    return(
-        <AddSection >
+    return (
+        <AddSection>
             <div className={props.currentTheme ? "AddSectionDark" : "AddSectionLight"}>
-                <AddButton className="add-income-button" onClick={props.incomeOpen} title="Add new income check">+ income</AddButton>
-                <AddButton className="add-rate-button" onClick={props.rateOpen} title="Add new expence check">+ expense</AddButton>
+                <AddButton className="add-income-button" onClick={props.incomeOpen} title="Add new income check">+
+                    income</AddButton>
+                <AddButton className="add-rate-button" onClick={props.rateOpen} title="Add new expence check">+
+                    expense</AddButton>
             </div>
         </AddSection>
     )
@@ -26,7 +28,7 @@ const AddSection = styled.section`
   align-items: center;
   bottom: 0;
   position: fixed;
-  
+
   .AddSectionDark {
     width: inherit;
     height: auto;
@@ -56,8 +58,8 @@ const AddSection = styled.section`
   @media screen and (max-width: 992px) {
     width: 570px;
   }
-  
-  @media screen and (max-width: 576px){
+
+  @media screen and (max-width: 576px) {
     width: 100%;
   }
 `
@@ -74,8 +76,8 @@ const AddButton = styled.button`
   cursor: pointer;
   margin: 0 5px;
 
-  @media screen and (max-width: 576px){
+  @media screen and (max-width: 576px) {
     font-size: 16px;
   }
-  
+
 `

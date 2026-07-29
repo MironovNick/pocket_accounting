@@ -19,6 +19,7 @@ type PropsType = {
     removeIncome: (name: string) => void
     removeRate: (name: string) => void
     currencyExchangeRate: number
+    currentTheme: boolean
 }
 
 export const ModalBody = (props: PropsType) => {
@@ -109,6 +110,7 @@ export const ModalBody = (props: PropsType) => {
                                         itemsRate={props.itemsRate}
                                         removeIncome={props.removeIncome}
                                         removeRate={props.removeRate}
+                                        currentTheme={props.currentTheme}
                 />
 
             </Modal>
