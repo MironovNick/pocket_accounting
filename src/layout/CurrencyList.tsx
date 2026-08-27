@@ -6,6 +6,7 @@ const currencyItems = ['USD', 'BYN', 'EUR', 'GBP']
 type PropsType = {
     changeCurrency: (index: number) => void
     currentTheme: boolean
+    currencyIndex: number
 }
 
 export const CurrencyList = (props: PropsType) => {
@@ -16,7 +17,7 @@ export const CurrencyList = (props: PropsType) => {
 
     return(
         <CurrList title="Change currancy">
-            <select className={props.currentTheme ? "selectDark" : "selectLight"}
+            <select value={props.currencyIndex} className={props.currentTheme ? "selectDark" : "selectLight"}
                     onChange={currencyChangeHandler}>
                 {currencyItems.map((item: string, index: number) => {
                         return (

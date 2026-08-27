@@ -21,9 +21,23 @@ function App() {
 
     const [itemList, setList] = useState<ItemType[]>(localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items') || '') :
         [
-            {id: v1(), incomeRate: true, sum: 650, category: "another income source", note: "adcasdc", date: "2025-11-11"},
+            {
+                id: v1(),
+                incomeRate: true,
+                sum: 650,
+                category: "another income source",
+                note: "adcasdc",
+                date: "2025-11-11"
+            },
             {id: v1(), incomeRate: true, sum: 350, category: "salary", note: "adcasdc", date: "2025-06-01"},
-            {id: v1(), incomeRate: false, sum: 1200, category: "utility payment", note: "qcqascasas", date: "2025-05-01"},
+            {
+                id: v1(),
+                incomeRate: false,
+                sum: 1200,
+                category: "utility payment",
+                note: "qcqascasas",
+                date: "2025-05-01"
+            },
             {id: v1(), incomeRate: true, sum: 200, category: "salary", note: "nckdmksllxs", date: "2025-05-01"},
             {id: v1(), incomeRate: false, sum: 500, category: "food", note: "sdcsdv", date: "2025-03-17"},
             {id: v1(), incomeRate: true, sum: 450, category: "freelance", note: "csdvsdvvsdv", date: "2025-02-28"},
@@ -33,8 +47,8 @@ function App() {
         ]
     );
 
-    const[currencyExchangeRate, setCurrencyExchangeRate] = useState<number[]>(localStorage.getItem("exchangeRate") ? JSON.parse((localStorage.getItem("exchangeRate") || "")) : currencyExchangeRateItems)
-    const[stateExchangeWindow, setExchangeWindowState] = useState<boolean>(false)
+    const [currencyExchangeRate, setCurrencyExchangeRate] = useState<number[]>(localStorage.getItem("exchangeRate") ? JSON.parse((localStorage.getItem("exchangeRate") || "")) : currencyExchangeRateItems)
+    const [stateExchangeWindow, setExchangeWindowState] = useState<boolean>(false)
 
     const changeExchangeWindowState = () => {
         setExchangeWindowState(!stateExchangeWindow)
@@ -145,7 +159,7 @@ function App() {
     const presentDay = new Date();
     const formattedPresentDay = presentDay.toISOString().substring(0, 10);
 
-    const firstItemDate = itemList.length ? itemList.reduce((min, item)=>(min > item.date ?  item.date : min),itemList[0].date) : formattedPresentDay;
+    const firstItemDate = itemList.length ? itemList.reduce((min, item) => (min > item.date ? item.date : min), itemList[0].date) : formattedPresentDay;
     const formattedLastYear = firstItemDate.toString().substring(0, 10);
 
     const [firstDate, setFirstDate] = useState<string>(formattedLastYear)
@@ -207,10 +221,13 @@ function App() {
             || incomeRateFilter === 'income' && t.incomeRate
             || incomeRateFilter === 'rate' && !t.incomeRate) && t.date >= firstDate && t.date <= secondDate)
 
-    const incomeSum = filteredItemList.reduce((sum, current) => current.incomeRate ? sum + current.sum : sum
+    const unFilteredItemList = itemList.filter(t =>
+        t.date >= firstDate && t.date <= secondDate)
+
+    const incomeSum = unFilteredItemList.reduce((sum, current) => current.incomeRate ? sum + current.sum : sum
         , 0)
 
-    const rateSum = filteredItemList.reduce((sum, current) => !current.incomeRate ? sum + current.sum : sum
+    const rateSum = unFilteredItemList.reduce((sum, current) => !current.incomeRate ? sum + current.sum : sum
         , 0)
 
     const balance = incomeSum - rateSum
@@ -272,6 +289,7 @@ function App() {
                         stateExchangeWindow={stateExchangeWindow}
                         currencyExchangeRate={currencyExchangeRate}
                         currencyName={currencyName}
+                        currencyIndex={currencyIndex}
                 />
                 <Main itemList={filteredItemList}
                       removeCheck={removeCheck}
@@ -307,24 +325,31 @@ function App() {
                 className={currentTheme ? !isMobile ? "RightWindow" : displayLeftWindowMob ? "RightWindowInactive" : "RightWindow" :
                     !isMobile ? "RightWindowLight" : !displayLeftWindowMob ? "RightWindowLight" : "RightWindowLightInactive"}>
                 <DonutCharts ItemList={filteredItemList}
-                              incomeRate={incomeRateFilter}
-                              incomeSum={incomeSum}
-                              rateSum={rateSum}
-                              openLeftWindowMob={openLeftWindowMob}
-                              changeTheme={changeTheme}
-                              currentTheme={currentTheme}
-                              incomeRateFilterChange={incomeRateFilterChange}
-                              changeFirstDate={changeFirstDate}
-                              changeSecondDate={changeSecondDate}
-                              firstDate={firstDate}
-                              secondDate={secondDate}
-                              setThisMonth={setThisMonth}
-                              setLastMonth={setLastMonth}
-                              setThisYear={setThisYear}
-                              setAllTime={setAllTime}
-                              balance={balance * currencyExchangeRate[currencyIndex]}
-                              currencySign={currencySignArr[currencyIndex]}
-                              isMobile={isMobile}
+                             incomeRate={incomeRateFilter}
+                             incomeSum={incomeSum * currencyExchangeRate[currencyIndex]}
+                             rateSum={rateSum * currencyExchangeRate[currencyIndex]}
+                             openLeftWindowMob={openLeftWindowMob}
+                             changeTheme={changeTheme}
+                             currentTheme={currentTheme}
+                             incomeRateFilterChange={incomeRateFilterChange}
+                             changeFirstDate={changeFirstDate}
+                             changeSecondDate={changeSecondDate}
+                             firstDate={firstDate}
+                             secondDate={secondDate}
+                             setThisMonth={setThisMonth}
+                             setLastMonth={setLastMonth}
+                             setThisYear={setThisYear}
+                             setAllTime={setAllTime}
+                             balance={balance * currencyExchangeRate[currencyIndex]}
+                             currencySign={currencySignArr[currencyIndex]}
+                             isMobile={isMobile}
+                             changeExchange={changeExchange}
+                             stateExchangeWindow={stateExchangeWindow}
+                             currencyName={currencyName}
+                             currencyExchangeRateNum={currencyExchangeRate[currencyIndex]}
+                             currencyExchangeRate={currencyExchangeRate}
+                             changeCurrency={changeCurrency}
+                             currencyIndex={currencyIndex}
                 />
             </div>
         </div>

@@ -9,6 +9,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Toggle} from "../components/Toggle";
 import {ToolsWindow} from "./MonthButtonWindow";
 import {v1} from "uuid";
+import {ExchangeList} from "./ExchangeRateList";
+import {CurrencyList} from "./CurrencyList";
 
 type chartType1 = {
     name: string
@@ -35,6 +37,13 @@ type PropsType = {
     balance: number
     currencySign: string
     isMobile: boolean
+    changeExchange: (num1: number, num2: number, num3: number, num4: number) => void
+    stateExchangeWindow: boolean
+    currencyName: string[]
+    currencyExchangeRateNum: number
+    currencyExchangeRate: number[]
+    changeCurrency: (index: number) => void
+    currencyIndex: number
 }
 
 export const DonutCharts = (props: PropsType) => {
@@ -89,7 +98,7 @@ export const DonutCharts = (props: PropsType) => {
                 <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none"/>
                 <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none"/>
                 <text x={ex + (cos >= 0 ? 1 : -1) * 6} y={ey} textAnchor={textAnchor}
-                      fill={props.currentTheme ? "#BECCE0" : "#8E6C6B"}>{`${value} $`}</text>
+                      fill={props.currentTheme ? "#BECCE0" : "#8E6C6B"}>{Math.round(value * props.currencyExchangeRateNum * 100)/100} {props.currencySign}</text>
                 <text x={ex + (cos >= 0 ? 1 : -1) * 6} y={ey} dy={18} textAnchor={textAnchor}
                       fill={props.currentTheme ? "#BECCE0" : "#8E6C6B"}>
                     {`( ${((percent ?? 1) * 100).toFixed(2)}%)`}
@@ -158,10 +167,17 @@ for (let i = 0; i < ItemList.length; i++) {
 
     return (
         <StyledDiagramWindow>
+
             <RightMenuBar className="menuBarLeft">
+                <div className="leftIconBar">
                 <FontAwesomeIcon icon={faChevronLeft} cursor={'pointer'}
                                  className={props.currentTheme ? "chevronLeftDark" : "chevronLeftLight"}
                                  onClick={props.openLeftWindowMob}/>
+                <CurrencyList changeCurrency={props.changeCurrency}
+                              currentTheme={props.currentTheme}
+                              currencyIndex={props.currencyIndex}
+                />
+                </div>
                 <Toggle changeTheme={props.changeTheme} currentTheme={props.currentTheme}/>
             </RightMenuBar>
             <DonutWindow>
@@ -209,7 +225,7 @@ for (let i = 0; i < ItemList.length; i++) {
                         <div className="statisticWindowItem">
                             <p className="categoryParagraph">{item.category}</p>
                             <p>{item.note}</p>
-                            <p>{item.sum} $</p>
+                            <p>{Math.round(item.sum * props.currencyExchangeRateNum * 100)/100} {props.currencySign}</p>
                         </div>
                     )
                 }
@@ -240,11 +256,13 @@ export const StyledDiagramWindow = styled.div`
   .chevronLeftDark{
     display: none;
     color: #BECCE0;
+    margin-right: 10px;
   }
 
   .chevronLeftLight{
     display: none;
     color: #8E6C6B;
+    margin-right: 10px;
   }
 
   @media screen and (max-width: 992px){
@@ -263,7 +281,13 @@ export const RightMenuBar = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 5px 10px;
-  background-color: transparent;
+  
+  .leftIconBar{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  
 `
 
 export const DateBar = styled.div`

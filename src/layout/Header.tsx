@@ -31,6 +31,7 @@ type PropsType = {
     stateExchangeWindow: boolean
     currencyExchangeRate: number[]
     currencyName: string[]
+    currencyIndex: number
 }
 
 export const Header = (props: PropsType) => {
@@ -47,7 +48,9 @@ export const Header = (props: PropsType) => {
                             currencyExchangeRate={props.currencyExchangeRate}
                             currencyName={props.currencyName}
                             changeCurrency={props.changeCurrency}
-                            openRightWindowMob={props.openRightWindowMob}/>
+                            openRightWindowMob={props.openRightWindowMob}
+                            currencyIndex={props.currencyIndex}
+                />
                 <ToolsWindow incomeRateFilterChange={props.incomeRateFilterChange}
                              changeFirstDate={props.changeFirstDate}
                              changeSecondDate={props.changeSecondDate}

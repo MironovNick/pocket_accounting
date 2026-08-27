@@ -17,6 +17,7 @@ type PropsType = {
     currencyName: string[]
     changeCurrency: (index: number) => void
     openRightWindowMob: () => void
+    currencyIndex: number
 }
 
 export const HeaderMenu = (props: PropsType) => {
@@ -40,8 +41,12 @@ export const HeaderMenu = (props: PropsType) => {
                               stateExchangeWindow={props.stateExchangeWindow}
                               currencyExchangeRate={props.currencyExchangeRate}
                               currencyName={props.currencyName}
+                              changeTheme={props.changeTheme} currentTheme={props.currentTheme}
                 />
-                <CurrencyList changeCurrency={props.changeCurrency} currentTheme={props.currentTheme}/>
+                <CurrencyList changeCurrency={props.changeCurrency}
+                              currentTheme={props.currentTheme}
+                              currencyIndex={props.currencyIndex}
+                />
             </div>
             <FontAwesomeIcon icon={faChevronRight}
                              cursor={'pointer'}

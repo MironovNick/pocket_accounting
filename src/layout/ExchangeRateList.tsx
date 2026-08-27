@@ -6,6 +6,8 @@ type PropsType = {
     changeExchange: (num1: number, num2: number, num3: number, num4: number) => void
     currencyExchangeRate: number[]
     currencyName: string[]
+    changeTheme: () => void
+    currentTheme: boolean
 }
 
 export const ExchangeList = (props: PropsType) => {

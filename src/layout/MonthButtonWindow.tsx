@@ -17,6 +17,7 @@ type PropsType = {
     rateSum: number
     balance: number
     currencySign: string
+
 }
 
 export const ToolsWindow = (props: PropsType) => {
