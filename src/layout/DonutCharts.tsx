@@ -223,9 +223,9 @@ for (let i = 0; i < ItemList.length; i++) {
                 {ItemList.map((item: ItemType) => {
                     return (
                         <div className="statisticWindowItem">
-                            <p className="categoryParagraph">{item.category}</p>
-                            <p>{item.note}</p>
-                            <p>{Math.round(item.sum * props.currencyExchangeRateNum * 100)/100} {props.currencySign}</p>
+                            <p className={props.currentTheme ? "categoryFirstParagraphDark" : "categoryFirstParagraphLight"}>{item.category}</p>
+                            <p className={props.currentTheme ? "paragraphDark" : "paragraphLight"}>{item.note}</p>
+                            <p className={props.currentTheme ? "priceParagraphDark" : "priceParagraphLight"}>{Math.round(item.sum * props.currencyExchangeRateNum * 100)/100} {props.currencySign}</p>
                         </div>
                     )
                 }
@@ -325,18 +325,48 @@ export const StatisticWindow = styled.div`
     justify-content: space-between;
     align-items: center;
     
-    p{
-      width: 45%;
+    .paragraphDark{
+      width: 50%;
       font-size: 19px;
       color: #BECCE0;
-      
+    }
+
+    .paragraphLight{
+      width: 50%;
+      font-size: 19px;
+      color: #8E6C6B;
     }
     
-    .categoryParagraph{
-      width: 90%;
+    .categoryFirstParagraphDark{
+      width: 45%;
       font-size: 15px;
       text-align: left;
       text-transform: capitalize;
+      color: #BECCE0;
+    }
+
+    .categoryFirstParagraphLight{
+      width: 45%;
+      font-size: 15px;
+      text-align: left;
+      text-transform: capitalize;
+      color: #8E6C6B;
+    }
+
+    
+    .priceParagraphDark{
+      width: 45%;
+      font-size: 19px;
+      color: #BECCE0;
+      text-align: right;
+    }
+
+
+    .priceParagraphLight{
+      width: 45%;
+      font-size: 19px;
+      color: #8E6C6B;
+      text-align: right;
     }
     
     

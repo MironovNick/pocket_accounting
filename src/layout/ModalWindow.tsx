@@ -14,6 +14,7 @@ type PropsType = {
     editCheck: (checkId: string, sum: number, cat: string, not: string) => void
     menuItems: string[]
     currencyExchangeRate: number
+    currentTheme: boolean
 }
 
 export const ModalWindow = (props: PropsType) => {
@@ -54,8 +55,8 @@ export const ModalWindow = (props: PropsType) => {
     return (
         <ModalWrapper id="open_modal_body" className = 'ModalBody'>
 
-            <AddWindow>
-
+            <AddWindow >
+                <div className={props.currentTheme ? "windowDark" : "windowLight"}>
                 <form>
                     <label htmlFor="fname">Price:</label>
                     <input type="number" id="fname" className="priceInput" name="fname" value={checkPrice} onChange={changeCheckPriceHandler}/><br />
@@ -77,6 +78,7 @@ export const ModalWindow = (props: PropsType) => {
                 <div className="modal-body-button-bar">
                     <button className={checkPrice === '0' || checkPrice === '' ? 'error-add-check-button' : "add-check-button" } onClick={OkButtonHandler}>{buttonName}</button>
                     <button className="cancel-button" onClick={props.closeModal}>cancel</button>
+                </div>
                 </div>
 
             </AddWindow>
@@ -108,21 +110,43 @@ export const ModalWrapper = styled.div`
 `
 
 export const AddWindow = styled.div`
-  width: 350px;
-  height: auto;
-  background: #1B2F4A;
-  border: 1px solid #2A4A74;
-  box-sizing: border-box;
-  border-radius: 8px;
-  position: relative;
-  margin: 200px auto;
-  padding: 10px 10px;
-  color: #BECCE0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  
 
-  form{
+ 
+  
+  .windowDark{
+    background: #1B2F4A;
+    border: 1px solid #2A4A74;
+    color: #BECCE0;
+    width: 350px;
+    height: auto;
+    box-sizing: border-box;
+    border-radius: 8px;
+    position: relative;
+    margin: 200px auto;
+    padding: 10px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .windowLight{
+    background-color: rgba(231, 222, 223, 1);
+    border: 1px solid #8E6C6B;
+    color: #8E6C6B;
+    width: 350px;
+    height: auto;
+    box-sizing: border-box;
+    border-radius: 8px;
+    position: relative;
+    margin: 200px auto;
+    padding: 10px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  form {
     padding: 15px 0;
     text-align: left;
   }

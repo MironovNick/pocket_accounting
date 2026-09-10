@@ -70,6 +70,7 @@ export const ModalBody = (props: PropsType) => {
                          editCheck={props.editCheck}
                          operationType={props.operationType}
                          currencyExchangeRate={props.currencyExchangeRate}
+                         currentTheme={props.currentTheme}
             />
 
         </Modal>

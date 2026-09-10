@@ -42,8 +42,7 @@ export const ExchangeList = (props: PropsType) => {
 
     return (
         <ExchangeRateList>
-
-            <div className={props.stateExchangeWindow ? "ExchangeRateListDark" : "ExchangeRateListDarkNone"}>
+            <div className={props.stateExchangeWindow ? props.currentTheme ? "ExchangeRateListDark" : "ExchangeRateListLight" : "ExchangeRateListDarkNone"}>
 
                 <div className="exchangeRateItem">
                     <div className="currencyBlock">
@@ -68,7 +67,6 @@ export const ExchangeList = (props: PropsType) => {
                 <button onClick={changeExchangeHandler}>confirm</button>
 
             </div>
-
         </ExchangeRateList>
     )
 
@@ -96,9 +94,7 @@ export const ExchangeRateList = styled.div`
     border: 1px solid #F9EFF0;
     color: #8E6C6B;
     padding: 0 0 5px 0;
-    margin: 15px 0
-      0 - 35
-    px;
+    margin: 15px 0 0 -35px;
     width: 150px;
     transition: .2s
       ease - in -out;
