@@ -117,7 +117,7 @@ export const AddWindow = styled.div`
   .windowDark{
     background: #1B2F4A;
     border: 1px solid #2A4A74;
-    color: #BECCE0;
+    color: red;
     width: 350px;
     height: auto;
     box-sizing: border-box;
